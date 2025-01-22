@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Microservicio de Clientes",
+    "version": "1.0.0",
+    "description": "API para crear clientes y obtener estadísticas."
+  },
+  "paths": {
+    "/crear-cliente": {
+      "post": {
+        "summary": "Crear un cliente",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nombre": { "type": "string" },
+                  "apellido": { "type": "string" },
+                  "edad": { "type": "number" },
+                  "fechaNacimiento": { "type": "string", "format": "date" }
+                },
+                "required": ["nombre", "apellido", "edad", "fechaNacimiento"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/kpi-clientes": {
+      "get": {
+        "summary": "Obtener estadísticas de clientes",
+        "responses": {
+          "200": {
+            "description": "Estadísticas de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "promedioEdad": { "type": "number" },
+                    "desviacionEstandar": { "type": "number" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/list-clientes": {
+      "get": {
+        "summary": "Obtener lista de clientes",
+        "responses": {
+          "200": {
+            "description": "Lista de clientes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "nombre": { "type": "string" },
+                      "apellido": { "type": "string" },
+                      "edad": { "type": "number" },
+                      "fechaNacimiento": { "type": "string" },
+                      "fechaMuerte": { "type": "string", "format": "date" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

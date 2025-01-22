@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:3000" # Mapea el puerto 3000 del contenedor al puerto 4000 de tu máquina
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/clientesDB # Conexión al servicio MongoDB dentro de Docker Compose
+    depends_on:
+      - mongo # Garantiza que MongoDB se inicie antes que la app
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongodb
+    ports:
+      - "27017:27017" # Mapea el puerto 27017 para acceder a MongoDB desde tu máquina
+    volumes:
+      - mongo-data:/data/db # Persistencia de datos
+
+volumes:
+  mongo-data:
+    driver: local
